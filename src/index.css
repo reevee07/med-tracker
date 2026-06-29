@@ -377,3 +377,120 @@ body {
     border-color: #7f1d1d;
   }
 }
+
+/* ── Admin button (top-right of header) ─────────────────────── */
+.hdr {
+  position: relative;   /* make sure this is set */
+}
+
+.admin-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: 1.5px solid #ccc;
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-size: 0.8rem;
+  color: #888;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.admin-btn:hover {
+  border-color: #888;
+  color: #333;
+}
+.admin-btn--active {
+  border-color: #4caf81;
+  color: #4caf81;
+  background: #f0faf5;
+}
+
+/* ── Password modal overlay ──────────────────────────────────── */
+.pw-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.pw-box {
+  background: #fff;
+  border-radius: 16px;
+  padding: 2rem;
+  width: 320px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.pw-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pw-input {
+  border: 1.5px solid #ddd;
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.pw-input:focus { border-color: #4caf81; }
+
+.pw-err {
+  margin: 0;
+  font-size: 0.8rem;
+  color: #e24b4a;
+}
+
+.pw-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.pw-cancel {
+  background: transparent;
+  border: 1.5px solid #ddd;
+  border-radius: 8px;
+  padding: 8px 16px;
+  cursor: pointer;
+  color: #888;
+}
+.pw-submit {
+  background: #4caf81;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.pw-submit:hover { background: #3d9e71; }
+
+/* ── Shake animation for wrong password ──────────────────────── */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%       { transform: translateX(-8px); }
+  40%       { transform: translateX(8px); }
+  60%       { transform: translateX(-6px); }
+  80%       { transform: translateX(6px); }
+}
+.pw-box--shake {
+  animation: shake 0.5s ease;
+}
