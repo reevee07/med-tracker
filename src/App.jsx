@@ -2,7 +2,6 @@ import { useEffect, useState, useRef } from 'react'
 import { supabase } from './lib/supabase'
 import MedTab from './components/MedTab'
 import MedCard from './components/MedCard'
-import logo from './medidose-logo.svg'
 
 export const TODAY = new Date().toISOString().slice(0, 10)
 export function daysSince(s) {
@@ -128,7 +127,10 @@ export default function App() {
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <img src={logo} alt="Medidose" style={{ width: '36px', height: '36px', borderRadius: '8px' }} />
-          <h1>Medidose</h1>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+  <img src="/medidose-logo.svg" alt="Medidose" style={{ width: '36px', height: '36px', borderRadius: '8px' }} />
+  <h1>Medidose</h1>
+</div>
         </div>
 
         <p>{dateLabel}</p>
