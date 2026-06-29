@@ -17,7 +17,9 @@ export function status(d) {
   return d <= 7 ? 'low' : d <= 14 ? 'warn' : 'ok'
 }
 
+// ─── CHANGE THIS to your actual password ───────────────────────────────────
 const ADMIN_PASSWORD = '22072023'
+// ────────────────────────────────────────────────────────────────────────────
 
 export default function App() {
   const [meds, setMeds]       = useState([])
@@ -25,15 +27,18 @@ export default function App() {
   const [loading, setLoading] = useState(true)
   const [error, setError]     = useState(null)
 
+  // ── admin state ──────────────────────────────────────────────────────────
   const [isAdmin, setIsAdmin]         = useState(false)
   const [showPwBox, setShowPwBox]     = useState(false)
   const [pwInput, setPwInput]         = useState('')
-  const [pwError, setPwError]         = useState(false)
+  const [pwError, setPwError]         = useState(false)   // triggers shake
   const [pwErrMsg, setPwErrMsg]       = useState('')
   const pwRef = useRef(null)
+  // ─────────────────────────────────────────────────────────────────────────
 
   useEffect(() => { fetchMeds() }, [])
 
+  // auto-focus password input when box opens
   useEffect(() => {
     if (showPwBox) setTimeout(() => pwRef.current?.focus(), 50)
   }, [showPwBox])
@@ -68,8 +73,10 @@ export default function App() {
     fetchMeds()
   }
 
+  // ── admin auth helpers ───────────────────────────────────────────────────
   function handleAdminClick() {
     if (isAdmin) {
+      // lock again
       setIsAdmin(false)
       setOpenIdx(null)
     } else {
@@ -92,6 +99,7 @@ export default function App() {
       setTimeout(() => setPwError(false), 600)
     }
   }
+  // ─────────────────────────────────────────────────────────────────────────
 
   const dateLabel = new Date().toLocaleDateString('en-IN', {
     weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'
@@ -116,6 +124,7 @@ export default function App() {
   return (
     <div className="app">
       <div className="hdr">
+        {/* ── admin toggle button ── */}
         <button
           className={`admin-btn ${isAdmin ? 'admin-btn--active' : ''}`}
           onClick={handleAdminClick}
@@ -126,16 +135,13 @@ export default function App() {
         </button>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <img src={logo} alt="Medidose" style={{ width: '36px', height: '36px', borderRadius: '8px' }} />
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-  <img src="/medidose-logo.svg" alt="Medidose" style={{ width: '36px', height: '36px', borderRadius: '8px' }} />
-  <h1>Medidose</h1>
-</div>
+          <img src="/medidose-logo.svg" alt="Medidose" style={{ width: '36px', height: '36px', borderRadius: '8px' }} />
+          <h1>Medidose</h1>
         </div>
-
         <p>{dateLabel}</p>
       </div>
 
+      {/* ── password modal ── */}
       {showPwBox && (
         <div className="pw-overlay" onClick={() => setShowPwBox(false)}>
           <div
@@ -183,6 +189,7 @@ export default function App() {
             isOpen={openIdx === i}
             onToggle={() => setOpenIdx(openIdx === i ? null : i)}
           >
+            {/* MedCard only renders for admin */}
             {isAdmin && (
               <MedCard
                 med={m}
